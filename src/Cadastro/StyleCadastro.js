@@ -28,14 +28,14 @@ const StyledCadastro = styled.div`
 
         border: none;
         border-radius: 8px;
+
+        padding-left: 14px;
     }
 
     input::placeholder {
         
         font-size: 14px;
         color: #7E7E7E;
-
-        padding-left: 14px;
     }
 
     button{
