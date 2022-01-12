@@ -52,6 +52,8 @@ const StyledSubscriptions = styled.div`
         font-size: 24px;
         font-weight: 700;
         color: #FFFFFF;
+
+        text-decoration: none;
     }
 `
 

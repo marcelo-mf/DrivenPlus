@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import { StyledSubscriptions } from "./StyleSubscriptions";
+import { useNavigate } from "react-router-dom"; 
 
 
-export default function Subscriptions({ token }) {
+export default function Subscriptions({ token, setPrice, setImage, setId }) {
 
     const [planos, setPlanos] = useState(null);
 
@@ -14,19 +15,30 @@ export default function Subscriptions({ token }) {
         }
     } 
 
+    const navigate = useNavigate();
+
     useEffect(()=> {
 
         const promise = axios.get('https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships', config)
 
         promise.then(response => {
-            console.log(response.data);
             setPlanos(response.data)
-        })
+        }, [])
 
-    }, []);
+    }, [planos]);
 
     if(planos === null) {
         return <h1>Carregando...</h1>
+    }
+
+    function dadosPlano(e, plano) {
+        e.preventDefault();
+
+        setPrice(plano.price);
+        setImage(plano.image);
+        setId(plano.id);
+
+        navigate(`/subscriptions/${plano.id}`)
     }
 
     return(
@@ -34,8 +46,8 @@ export default function Subscriptions({ token }) {
         <h1>Escolha seu Plano</h1>
         <div className="planos-list">
             {planos.map(plano => (
-                <div key={plano.id} className="plano">
-                    <img src={plano.image}/>
+                <div onClick={(event)=> dadosPlano(event, plano)} key={plano.id} className="plano">
+                    <img src={plano.image} alt="logo"/>
                     <h3>R$ {plano.price}</h3>
                 </div>
             ))}
