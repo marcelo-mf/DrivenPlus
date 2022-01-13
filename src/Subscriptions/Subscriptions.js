@@ -23,9 +23,9 @@ export default function Subscriptions({ token, setPrice, setImage, setId }) {
 
         promise.then(response => {
             setPlanos(response.data)
-        }, [])
+        }, []);
 
-    }, [planos]);
+    }, []);
 
     if(planos === null) {
         return <h1>Carregando...</h1>

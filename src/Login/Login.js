@@ -5,7 +5,7 @@ import axios from "axios"
 import logo from "../assets/Driven_white 1.png"
 import { StyledLogin } from "./StyleLogin"
 
-export default function Login({setToken}) {
+export default function Login({setToken, setIdPlano}) {
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -23,7 +23,17 @@ export default function Login({setToken}) {
 
             promise.then(response => {
             setToken(response.data.token);
-            navigate('/subscriptions')
+
+
+            if (response.data.membership === null) {
+                navigate('/subscriptions')
+            } else if (response.data.membership !== null) {
+                setIdPlano(response.data.membership.id)
+                navigate('/home')
+            }
+
+            
+
             });
 
             promise.catch(error => alert(error.response.data.message));

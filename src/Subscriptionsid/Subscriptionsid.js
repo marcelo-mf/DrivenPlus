@@ -7,14 +7,14 @@ import { StyledSubscriptionsid } from './StyleSubscriptionsid';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
-export default function Subscriptionsid({price, image, id, token}) {
+export default function Subscriptionsid({price, image, id, token, setIdPlano}) {
 
     const [cardName, setCardName] = useState('');
     const [cardNumber, setCardNumber] = useState('');
     const [securityNumber, setSecurityNumber] = useState('');
     const [expirationDate, setexpirationDate] = useState('');
 
-    const [showConfirmation, setShowConfirmation] = useState(false)
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
     const navigate = useNavigate();
 
@@ -40,9 +40,7 @@ export default function Subscriptionsid({price, image, id, token}) {
             expirationDate: expirationDate
         }, config);
 
-        promise.then(response => {
-            alert('SUCESSO!')
-            });
+        promise.then();
 
         promise.catch(error => console.log(error.response));
 
@@ -53,7 +51,14 @@ export default function Subscriptionsid({price, image, id, token}) {
         e.preventDefault();
 
         setShowConfirmation(!showConfirmation);
+    }
 
+    function goToHome(e) {
+        e.preventDefault();
+
+        setIdPlano(id);
+        handleSubscription(e);
+        navigate('/home');
     }
 
     return(
@@ -98,7 +103,7 @@ export default function Subscriptionsid({price, image, id, token}) {
                     <h1>Tem certeza que deseja assinar o plano Driven Plus (R$ {price})?</h1>
                     <div className='sim-nao'>
                         <button onClick={(event) => confirmation(event)} className="nao">Não</button>
-                        <button onClick={(event) => handleSubscription(event)} className="sim" >Sim</button>
+                        <button onClick={(event) => goToHome(event)} className="sim" >Sim</button>
                     </div>
                 </div>
             </div>)}
