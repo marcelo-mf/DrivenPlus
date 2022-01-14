@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-
+import Loading from "../Loading/Loading";
 import { StyledSubscriptions } from "./StyleSubscriptions";
+import LoginContext from "../contexts/LoginContext";
 import { useNavigate } from "react-router-dom"; 
 
 
-export default function Subscriptions({ token, setPrice, setImage, setId }) {
+export default function Subscriptions({ setPrice, setImage, setId }) {
+
+    const {token} = useContext(LoginContext);
 
     const [planos, setPlanos] = useState(null);
 
@@ -28,7 +31,7 @@ export default function Subscriptions({ token, setPrice, setImage, setId }) {
     }, []);
 
     if(planos === null) {
-        return <h1>Carregando...</h1>
+        return <Loading />
     }
 
     function dadosPlano(e, plano) {

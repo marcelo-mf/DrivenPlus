@@ -1,13 +1,16 @@
 import { ClipboardOutline } from 'react-ionicons'
 import { CashOutline } from 'react-ionicons'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { ArrowBackOutline } from 'react-ionicons'
 import { CloseOutline } from 'react-ionicons'
 import { StyledSubscriptionsid } from './StyleSubscriptionsid';
 import { useNavigate } from 'react-router-dom';
+import LoginContext from "../contexts/LoginContext";
 import axios from 'axios'
 
-export default function Subscriptionsid({price, image, id, token, setIdPlano}) {
+export default function Subscriptionsid({price, image, id}) {
+
+    const {token, setIdPlano} = useContext(LoginContext);
 
     const [cardName, setCardName] = useState('');
     const [cardNumber, setCardNumber] = useState('');
@@ -30,8 +33,6 @@ export default function Subscriptionsid({price, image, id, token, setIdPlano}) {
 
         e.preventDefault();
 
-        console.log(config);
-
         const promise = axios.post('https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions', {
             membershipId: id,
             cardName: cardName,
@@ -42,7 +43,7 @@ export default function Subscriptionsid({price, image, id, token, setIdPlano}) {
 
         promise.then();
 
-        promise.catch(error => console.log(error.response));
+        promise.catch(error => alert(error.response.data.message));
 
     }
 
