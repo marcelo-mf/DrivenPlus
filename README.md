@@ -1,11 +1,8 @@
-### Driven Plus
+# Driven Plus
+- Published at: https://driven-plus.vercel.app/
 
-- Published at https://driven-plus.vercel.app/
-
-## Language used:
-
+### Language used:
 - React
 
-## About:
-
+### About:
 - Website with Login, Subscription and content for subscribers.
